@@ -7,7 +7,10 @@ authors = [
     { name = "Antrax", email = "fredcox@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pygobject>=3.52.3",
+    "pygobject-stubs>=2.13.0",
+]
 
 [project.scripts]
 waydock = "waydock:main"
