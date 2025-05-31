@@ -4,6 +4,11 @@ Dock for Wayland using GTK4 Layer Shell
 Positioned at the bottom of the screen
 """
 
+from ctypes import CDLL
+
+
+# Load the GTK4 LayerShell library before importing gi
+CDLL("libgtk4-layer-shell.so")
 import gi
 import sys
 import subprocess
