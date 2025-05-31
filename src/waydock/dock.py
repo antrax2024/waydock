@@ -15,19 +15,20 @@ gi.require_version("Gdk", "4.0")
 gi.require_version("Gio", "2.0")
 
 try:
-    gi.require_version("Gtk4LayerShell", "1.0")
+    gi.require_version("LayerShell", "1.0")
 except ValueError:
     print("ERROR: GTK4 Layer Shell is not installed.")
     print("To install on Arch Linux: sudo pacman -S gtk4-layer-shell")
     print("To install on Ubuntu/Debian: sudo apt install libgtk4-layer-shell0")
     sys.exit(1)
 
-from gi.repository import Gtk, Gdk, GdkPixbuf, Gtk4LayerShell  # pyright: ignore # noqa
+from gi.repository import LayerShell as LayerShell  # pyright: ignore #noqa
+from gi.repository import Gtk, Gdk, GdkPixbuf  # pyright: ignore # noqa
 
 
 class DockApplication:
     def __init__(self):
-        self.app = Gtk.Application(application_id="com.wayland.dock")
+        self.app = Gtk.Application(application_id="com.antrax.waydock")
         self.app.connect("activate", self.on_activate)
         self.window = None
         self.dock_box = None
@@ -36,29 +37,29 @@ class DockApplication:
     def on_activate(self, app):
         self.create_dock_window()
         self.populate_dock()
-        self.window.present()
+        self.window.present()  # pyright: ignore # noqa
 
     def create_dock_window(self):
         """Creates the main dock window"""
         self.window = Gtk.ApplicationWindow(application=self.app)
-        self.window.set_title("Wayland Dock")
+        self.window.set_title("WayDock")
 
         # Initialize Layer Shell
-        Gtk4LayerShell.init_for_window(self.window)
+        LayerShell.init_for_window(self.window)
 
         # Configure layer shell - position at bottom
-        Gtk4LayerShell.set_layer(self.window, Gtk4LayerShell.Layer.TOP)
-        Gtk4LayerShell.set_anchor(self.window, Gtk4LayerShell.Edge.BOTTOM, True)
-        Gtk4LayerShell.set_anchor(self.window, Gtk4LayerShell.Edge.LEFT, True)
-        Gtk4LayerShell.set_anchor(self.window, Gtk4LayerShell.Edge.RIGHT, True)
+        LayerShell.set_layer(self.window, LayerShell.Layer.TOP)
+        LayerShell.set_anchor(self.window, LayerShell.Edge.BOTTOM, True)
+        LayerShell.set_anchor(self.window, LayerShell.Edge.LEFT, True)
+        LayerShell.set_anchor(self.window, LayerShell.Edge.RIGHT, True)
 
         # Configure exclusive zone (reserve screen space)
-        Gtk4LayerShell.auto_exclusive_zone_enable(self.window)
+        LayerShell.auto_exclusive_zone_enable(self.window)
 
         # Configure margins
-        Gtk4LayerShell.set_margin(self.window, Gtk4LayerShell.Edge.BOTTOM, 0)
-        Gtk4LayerShell.set_margin(self.window, Gtk4LayerShell.Edge.LEFT, 0)
-        Gtk4LayerShell.set_margin(self.window, Gtk4LayerShell.Edge.RIGHT, 0)
+        LayerShell.set_margin(self.window, LayerShell.Edge.BOTTOM, 0)
+        LayerShell.set_margin(self.window, LayerShell.Edge.LEFT, 0)
+        LayerShell.set_margin(self.window, LayerShell.Edge.RIGHT, 0)
 
         # Configure window styling
         self.setup_styling()
@@ -105,7 +106,7 @@ class DockApplication:
 
         css_provider.load_from_data(css_data.encode())
         Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
+            Gdk.Display.get_default(),  # pyright: ignore # noqa
             css_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
@@ -177,14 +178,14 @@ class DockApplication:
 
         try:
             # Try to load theme icon
-            icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())
+            icon_theme = Gtk.IconTheme.get_for_display(Gdk.Display.get_default())  # pyright: ignore # noqa
 
             if os.path.isabs(icon_name):
                 # Absolute path icon
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(
                     icon_name, icon_size, icon_size, True
                 )
-                texture = Gdk.Texture.new_for_pixbuf(pixbuf)
+                texture = Gdk.Texture.new_for_pixbuf(pixbuf)  # pyright: ignore # noqa
                 icon = Gtk.Image.new_from_paintable(texture)
             else:
                 # Theme icon
@@ -268,10 +269,10 @@ class DockApplication:
         # Add system buttons at the beginning
         system_buttons = self.create_system_buttons()
         for button in system_buttons:
-            self.dock_box.append(button)
+            self.dock_box.append(button)  # pyright: ignore # noqa
 
         # Add separator
-        self.dock_box.append(self.add_separator())
+        self.dock_box.append(self.add_separator())  # pyright: ignore # noqa
 
         # Find and add main applications
         apps = self.get_desktop_applications()
@@ -292,7 +293,7 @@ class DockApplication:
 
         for app in apps:
             button = self.create_app_button(app)
-            self.dock_box.append(button)
+            self.dock_box.append(button)  # pyright: ignore # noqa
 
     def run(self):
         """Runs the application"""
