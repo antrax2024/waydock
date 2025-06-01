@@ -1,24 +1,22 @@
-# Command Line Interface for hyprbar
+# Command Line Interface for waydock
 # Using click for command line interface
 import sys
 import click
 from rich.table import Table
-from hyprbar.bar import runHyprBar  # pyright: ignore # noqa
-from hyprbar.config import HyprbarConfig  # pyright: ignore # noqa
-from hyprbar.util import cl, showError, fileExists
-from hyprbar.constants import APP_NAME, APP_VERSION, CONFIG_FILE, STYLE_FILE
+from waydock.util import cl, showError, fileExists
+from waydock.constants import APP_NAME, APP_VERSION, CONFIG_FILE, STYLE_FILE
 
 
 @click.command()
 def cli() -> None:
     """
-    Command line interface for hyprbar.
+    Command line interface for waydock.
     """
     cl.print(
         f"[bold green]{APP_NAME}[/bold green] [bold blue]{APP_VERSION}[/bold blue]"
     )
 
-    cl.print("Configuration Status...")
+    cl.print("Config files...")
     # Criação da tabela
     table = Table(show_header=True, header_style="bold cyan")
     table.add_column("Item", justify="right")
@@ -47,10 +45,3 @@ def cli() -> None:
     if not styleFileOk:
         showError("Style file does not exists... Exiting...")
         sys.exit(1)
-
-    try:
-        hyprbarConfig = HyprbarConfig()  # pyright: ignore # noqa
-        cl.print("Starting GUI...")
-        runHyprBar(config=hyprbarConfig)
-    except Exception as e:
-        showError(f"Error: {e}")

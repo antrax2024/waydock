@@ -1,2 +1,4 @@
 def main() -> None:
-    print("Hello from waydock!")
+    from waydock.cli import cli
+
+    cli()
