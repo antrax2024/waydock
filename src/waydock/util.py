@@ -1,23 +1,35 @@
-# - This is a Python 3.13 application
-# - Enforce static typing (type hints) in all functions
-# - Enable rich terminal output using `rich`
-# - Manage Python dependencies and builds with `uv`
-# - Adhere to PEP8 code style standards
-# - Maintain English-only documentation and code comments
-# - Apply camelCase convention for variables, methods and functions
-# **Note**: While camelCase conflicts with PEP8's snake_case recommendation
-# for Python, this requirement takes precedence per project specifications
-# Utils Functions
-#
 import os
+import shutil
 import subprocess
+import importlib.resources
 from rich.console import Console
-from waydock.constants import SPACES_DEFAULT
+from waydock.constants import SPACES_DEFAULT, APP_NAME
 
 
 cl = Console(log_time_format="[%Y-%m-%d %H:%M:%S]")
 # Força o Rich a não omitir timestamps repetidos
 cl._log_render.omit_repeated_times = False
+
+
+def copyResource(destination) -> bool:
+    # Extract only the filename from destination variable
+    filename = os.path.basename(destination)
+    # if directory does not exist, create it
+    os.makedirs(os.path.dirname(destination), exist_ok=True)
+
+    source = importlib.resources.files(anchor=f"{APP_NAME}").joinpath(
+        f"assets/{filename}"
+    )
+    # Convert Traversable to string path and copy the file
+    try:
+        shutil.copy2(
+            src=str(object=source),
+            dst=destination,
+        )
+        return True
+    except Exception as e:
+        cl.print(f"[bold red]Error copying resource: {e}[/bold red]")
+        return False
 
 
 def printLog(message: str) -> None:
