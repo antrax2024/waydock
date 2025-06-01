@@ -1,0 +1,107 @@
+* {
+  font-family: "Hack Nerd Font Propo", sans-serif;
+  font-size: 18px;
+}
+
+#hyprbar {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0px;
+  margin: 0px;
+}
+
+#workspace-1,
+#workspace-2,
+#workspace-3,
+#workspace-4,
+#workspace-5 {
+  color: #ffffff;
+  font-size: 20px;
+  min-width: 35px;
+}
+
+.workspace-active {
+  color: #7CFC00;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #7CFC00;
+}
+
+.workspace-hover:hover {
+  color: #DDA853;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #7F8CAA;
+}
+
+
+.appswitch {
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #BBFBFF;
+}
+
+.appswitch:hover {
+  color: lightgreen;
+  border-color: lightgreen;
+}
+
+
+#kernel-icon {
+  color: hotpink;
+}
+
+#kernel-label {
+  color: #ffffff;
+}
+
+#cpu-icon {
+  color: #D5451B;
+}
+
+#cpu-label {
+  color: #ffffff;
+}
+
+#ram-icon {
+  color: #FAA4BD;
+}
+
+#ram-label {
+  color: #ffffff;
+}
+
+#disks-icon {
+  color: #FEBA17;
+}
+
+#disks-label {
+  color: #ffffff;
+}
+
+
+#clock-icon {
+  color: #7CFC00;
+}
+
+#clock-label {
+  color: #FFE1E0;
+}
+
+#cputemp-icon {
+  color: #C68EFD;
+}
+
+#cputemp-label {
+  color: #FFE1E0;
+}
+
+.separator {
+  color: #547792;
+}
+
+#tray {
+  margin-left: 4px;
+  margin-right: 4px;
+}

@@ -1,0 +1,90 @@
+# HyprBar Configuration File
+
+window:
+  anchor: top # top, left, right or bottom
+  margin_top: 0
+  margin_bottom: 0
+  width: 2560 # The width of the window in pixels
+  height: 34 # The height of the window in pixels
+
+  left_container:
+    hor_spacing: 6
+    components:
+      - type: workspaces
+        ids: ["1", "2", "3", "4", "5"]
+        css_id: "workspace"
+
+      - type: separator
+        character: ""
+        css_class: "separator"
+
+      - type: appswitch
+
+  right_container:
+    hor_spacing: 6
+    components:
+      - type: kernel
+        icon: "󰌽"
+        command: "uname -r" # commando to display the kernel
+        css_id: "kernel"
+        refresh: 60000 # 60 seconds to refresh
+
+      - type: separator
+        character: ""
+        css_class: "separator"
+
+      - type: cpu
+        icon: ""
+        text: "cpu"
+        css_id: "cpu"
+        refresh: 1000 # 1 seconds to refresh
+
+      - type: separator
+        character: ""
+        css_class: "separator"
+
+      - type: custom
+        icon: ""
+        text: "cpu temp"
+        command: 'sensors | grep "Tctl" | sed ''s/+//'' | awk ''{print $2}'''
+        css_id: "cputemp"
+        refresh: 1000 # 1 seconds to refresh
+
+      - type: separator
+        character: ""
+        css_class: "separator"
+
+      - type: ram
+        icon: ""
+        text: "ram"
+        css_id: "ram"
+        refresh: 1000 # 1 seconds to refresh
+
+      - type: separator
+        character: ""
+        css_class: "separator"
+
+      - type: disks
+        icon: ""
+        text: "disks"
+        disks: ["/"]
+        css_id: "disks"
+        refresh: 5000 # 5 seconds to refresh
+
+      - type: separator
+        character: ""
+        css_class: "separator"
+
+      - type: clock
+        icon: "󰦖"
+        format: "%d/%m/%Y %H:%M:%S"
+        css_id: "clock"
+        refresh: 1
+
+      - type: separator
+        character: ""
+        css_class: "separator"
+
+      - type: tray
+        spacing: 10
+        css_id: "tray"
