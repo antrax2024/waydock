@@ -15,6 +15,6 @@ class WindowConfig(BaseConfig):
     height: int
 
 
-class waydockConfig(BaseConfig):
+class WaydockConfig(BaseConfig):
     CONFIG_SOURCES = FileSource(CONFIG_FILE)
     window: WindowConfig

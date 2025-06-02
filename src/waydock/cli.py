@@ -4,6 +4,8 @@ import click
 from rich.table import Table
 from waydock.util import cl, copyResource, printLog, fileExists
 from waydock.constants import APP_NAME, APP_VERSION, CONFIG_FILE, STYLE_FILE
+from waydock.dock import DockApplication
+from waydock.config import WaydockConfig
 
 
 @click.command()
@@ -41,3 +43,5 @@ def cli() -> None:
     )
 
     cl.print(table)
+
+    DockApplication(config=WaydockConfig()).run()
